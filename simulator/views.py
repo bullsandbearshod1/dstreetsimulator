@@ -34,6 +34,13 @@ def Lauth(request):
                   s.save()
                   y = lauth(user=company,league=s,balance=100000)
                   y.save()
+              elif a.gamecode == "RaghavSaraf":
+                  s = league(game_code=a.game_code)
+                  s.users.add(company)
+                  s.save()
+                  y = lauth(user=company,league=s,balance=1500000)
+                  y.save()
+                
               else:
                   messages.error(request, "Incorrect Gamecode")
     
