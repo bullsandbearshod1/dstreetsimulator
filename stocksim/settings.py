@@ -25,7 +25,7 @@ SECRET_KEY = '3pv+@28e6m#2)iz!irmn3tk(jh)p08u*h@(!tnuocq7@z#cdai'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['xavagestocksim.herokuapp.com','127.0.0.1','stocksimulator.xavage21.com']
+ALLOWED_HOSTS = ['dstreetsim.herokuapp.com','127.0.0.1']
 
 
 # Application definition
