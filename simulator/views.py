@@ -36,6 +36,7 @@ def Lauth(request):
                   y.save()
               elif a.game_code == "RaghavSaraf":
                   s = league(game_code=a.game_code)
+                  s.save()
                   s.users.add(company)
                   s.save()
                   y = lauth(user=company,league=s,balance=1500000)
