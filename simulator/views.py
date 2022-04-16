@@ -224,6 +224,7 @@ def ipodistribute(request,newsid):
         print(ipo_a.quantity_per_user)
         print(total_cost)
     ipo_a.status = "Completed"
+    ipo_a.save()
    return HttpResponseRedirect(reverse_lazy('ipo'))  
 
 
