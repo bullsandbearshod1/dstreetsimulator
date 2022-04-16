@@ -34,7 +34,7 @@ class stocks(models.Model):
 class news(models.Model):
     title = models.CharField(max_length=10000)
     stock = models.ForeignKey(stocks, on_delete=models.CASCADE, related_name="news")
-    description = models.CharField(max_length=1000000000)
+    description = models.CharField(max_length=10385760)
     created_at = models.DateTimeField(auto_now_add=True)
     league = models.ForeignKey(league, on_delete=models.CASCADE, related_name="news")
 
