@@ -194,7 +194,7 @@ def ipomanage(request,newsid):
 def ipoapply(request,newsid):
     items = ipo.objects.filter(id = newsid)
     if(items):
-        if not (ipo_application.objects.filter(user = newsid)):
+        if not (ipo_application.objects.filter(user = request.user)):
           p = ipo_application(ipo= items[0],user=request.user,status="Applied")
           p.save()
     return HttpResponseRedirect(reverse_lazy('ipo'))  
