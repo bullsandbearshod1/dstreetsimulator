@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='news',
             name='description',
-            field=models.CharField(max_length=1000000000),
+            field=models.TextField(),
         ),
     ]
