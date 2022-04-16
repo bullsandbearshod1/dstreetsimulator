@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from .models import ipo_application, league, stocks,news,holdings, transaction,transfer,lauth, ipo
 
-admin.site.site_header = 'DStreet Administration'
+admin.site.site_header = 'D-Street Administration'
 
 
 @admin.register(league)
