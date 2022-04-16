@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Transact  | XAVAGE '21{% endblock %}
+{% block title %}IPO | XAVAGE '21{% endblock %}
 
 {% block content %}
 
@@ -17,8 +17,24 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text">Transact</h3>
+                        <h3 class="text">IPO Applications</h3>
                       
+                    </div>
+                    <div class="col-md-7 col-4 align-self-center">
+                        <div class="d-flex m-t-10 justify-content-end">
+                           
+                            <div class="d-flex m-r-20 m-l-10 hidden-md-down">
+                                {% if status != "Completed" %}
+                                <a href='/ipo/distriute/{{id}}/'>Distribute</a>
+                                {% else %}
+                                <p>Distributed</p>
+      
+                                {% endif %}
+                                
+                                
+                            </div>
+                            
+                        </div>
                     </div>
                   
                 </div>
@@ -31,9 +47,45 @@
                 <!-- Row -->
          
                 <!-- Row -->
-            
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id='example23' class="table">
+                                        <thead>
+                                            <tr>
+                                            
+                                                <th>User</th>
+                                                <th>Created At</th>
+                                                <th>Status</th>
 
-                <p>Trading currently not available. Check back during trading hours</p>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                            {% for item in items %}
+                                    <tr>        
+
+                                                <td>{{item.user}}</td>
+                                                <td>{{item.created_at}}</td>
+                                                <td>{{item.status}}</td>
+  
+                                    </tr>
+                                        {% endfor %}
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+
+                
               
                 <!-- Row -->
                 <!-- Row -->

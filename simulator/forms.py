@@ -23,7 +23,7 @@ class transactionadder(ModelForm):
         super(transactionadder, self).__init__(*args, **kwargs)
         # without the next line label_from_instance does NOT work
         self.fields['ttype'].label = 'Transaction Type'
-        self.fields['stock'].queryset = stocks.objects.filter(league=user)
+        self.fields['stock'].queryset = stocks.objects.filter(league=user,listed=True)
         self.fields['stock'].label_from_instance = lambda obj: "%s" % (obj.name)
 
 

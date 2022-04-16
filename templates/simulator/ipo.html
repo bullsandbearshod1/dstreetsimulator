@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Transact  | XAVAGE '21{% endblock %}
+{% block title %}IPO | XAVAGE '21{% endblock %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text">Transact</h3>
+                        <h3 class="text">IPO Applications</h3>
                       
                     </div>
                   
@@ -31,9 +31,56 @@
                 <!-- Row -->
          
                 <!-- Row -->
-            
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id='example23' class="table">
+                                        <thead>
+                                            <tr>
+                                            
+                                                <th>Stock</th>
+                                                <th>Price</th>
+                                                <th>Total Quantity</th>
+                                                <th>Quantity Per User</th>
+                                                <th>Apply</th>
+                                                <th>Status</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                            {% for item in items %}
+                                    <tr>        
+                                                {% if request.user.is_superuser %}
+                                                <td><a href='/ipo/manage/{{ item.id }}/'>{{item.stock}}</a></td>
+                                                {% else %}
+                                                <td>{{item.stock}}</td>
+                                                {% endif %}
+                                                <td>{{item.stock.price}}</td>
+                                                <td>{{item.total_quantity}}</td>
+                                                <td>{{item.quantity_per_user}}</td>
+                                                {% if item.status == "Not Applied"  %}
+                                                <td><a href='/ipo/apply/{{ item.id }}/'>Apply</a></td>
+                                                {% else %}
+                                                <td>Applied</td>
+                                                {% endif %}
+                                                <td>{{item.status}}</td>
+                                    </tr>
+                                        {% endfor %}
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
 
-                <p>Trading currently not available. Check back during trading hours</p>
+                
               
                 <!-- Row -->
                 <!-- Row -->

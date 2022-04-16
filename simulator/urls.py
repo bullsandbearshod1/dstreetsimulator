@@ -19,6 +19,10 @@ urlpatterns = [
     path('transfer/requests/delete/<stockid>/',views.trd, name='trd'),  
     path('transfer/requests/decline/<stockid>/',views.trr, name='trr'),  
     path('transfer/requests/accept/<stockid>/',views.tra, name='tra'),  
+    path('ipo/',views.Ipo, name='ipo'),  
+    path('ipo/apply/<newsid>/',views.ipoapply, name='ipoapply'),  
+    path('ipo/manage/<newsid>/',views.ipomanage, name='ipomanage'), 
+    path('ipo/distriute/<newsid>/',views.ipodistribute, name='ipodistribute'),  
 
     
 
