@@ -10,9 +10,14 @@ admin.site.site_header = 'DStreet Administration'
 class leagueAdmin(admin.ModelAdmin):
     list_display = ("name", "game_code")
 
+@admin.register(lauth)
+class leagueAdmin(admin.ModelAdmin):
+    list_display = ("user","balance" )
+
 @admin.register(ipo)
 class leagueAdmin(admin.ModelAdmin):
     list_display = ("stock",)
+
 @admin.register(ipo_application)
 class leagueAdmin(admin.ModelAdmin):
     list_display = ("ipo",'user')
@@ -24,7 +29,7 @@ class stockAdmin(admin.ModelAdmin):
 
 @admin.register(news)
 class newsAdmin(admin.ModelAdmin):
-    list_display = ("title", "stock",'created_at')
+    list_display = ("title",'created_at')
 
 
 @admin.register(holdings)
