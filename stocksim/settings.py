@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3pv+@28e6m#2)iz!irmn3tk(jh)p08u*h@(!tnuocq7@z#cdai'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['dstreetsim.herokuapp.com','127.0.0.1']
 
@@ -152,8 +152,10 @@ STATICFILES_DIRS = (
 )
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 ADMIN_MEDIA_PREFIX = '/staticfiles/admin/'
+WHITENOISE_MANIFEST_STRICT = False
 #DATABASE 
 
 import dj_database_url 

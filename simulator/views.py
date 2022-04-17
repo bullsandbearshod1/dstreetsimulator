@@ -107,7 +107,7 @@ def home(request):
 
 @login_required
 def portfolio(request):
-    items = holdings.objects.filter(user = request.user, league = request.user.lauth.league)
+    items = holdings.objects.filter(user = request.user, league = request.user.lauth.league).select_related('stock')
     template = "simulator/portfolio.html"
     cp = []
     for x in items:
@@ -134,7 +134,7 @@ def pnl(request):
     cp = []
     for x in request.user.lauth.league.users.all().exclude(username='admin'):
         pvalue = x.lauth.balance
-        y = holdings.objects.filter(user=x,league = x.lauth.league)
+        y = holdings.objects.filter(user=x,league = x.lauth.league).select_related('stock')
         for z in y:
             pvalue += z.stock.price * z.quantity
         cv = {'user':x,'pvalue':pvalue}
@@ -164,7 +164,7 @@ def News_v(request,newsid):
 
 @login_required
 def Ipo(request):
-    items = ipo.objects.filter(league = request.user.lauth.league)
+    items = ipo.objects.filter(league = request.user.lauth.league).select_related('stock')
     g = []
     r = ipo_application.objects.filter(user = request.user)
     if(r):
@@ -201,7 +201,7 @@ def ipoapply(request,newsid):
 
 @login_required
 def ipodistribute(request,newsid):
-   ipo_a = ipo.objects.get(id=newsid)
+   ipo_a = ipo.objects.get(id=newsid).select_related('stock')
    if(ipo_a.status != "Completed"):
     items = ipo_application.objects.filter(ipo = newsid)
     total_users = ipo_a.total_quantity / ipo_a.quantity_per_user
@@ -240,7 +240,7 @@ def equity_transactions(request):
               a.total_investment = b_price * a.quantity
               a.user = request.user 
               a.league = request.user.lauth.league
-              hs = holdings.objects.filter(user=request.user, league=request.user.lauth.league,stock = a.stock,type='Equity')
+              hs = holdings.objects.filter(user=request.user, league=request.user.lauth.league,stock = a.stock,type='Equity').select_related('stock')
               t = request.user.lauth
               if a.ttype == "BUY":
                 if a.total_investment > request.user.lauth.balance:
@@ -268,11 +268,11 @@ def equity_transactions(request):
                        if z.quantity == 0:
                               z.delete()
               #--------SHORT---------------------
-              hs = holdings.objects.filter(user=request.user, league=request.user.lauth.league,stock = a.stock,type='Short')
+              hs = holdings.objects.filter(user=request.user, league=request.user.lauth.league,stock = a.stock,type='Short').select_related('stock')
            
               
               if a.ttype == "SHORT":
-                hls = holdings.objects.filter(user=request.user, league=request.user.lauth.league,type='Short')
+                hls = holdings.objects.filter(user=request.user, league=request.user.lauth.league,type='Short').select_related('stock')
                 inv_sum = a.total_investment
                 for x in hls:
                     inv_sum += x.average_price*x.quantity
