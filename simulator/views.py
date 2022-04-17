@@ -165,20 +165,19 @@ def News_v(request,newsid):
 @login_required
 def Ipo(request):
     items = ipo.objects.filter(league = request.user.lauth.league).select_related('stock')
+    r = ipo_application.objects.filter(user = request.user).select_related('ipo')
     g = []
-    r = ipo_application.objects.filter(user = request.user)
-    if(r):
-      status = r[0].status
-    else:
-        status = "Not Applied"
     for x in items:
+        t =r.filter(ipo=x)
+        if(t):
+           status = t[0].status
+        else:
+          status = "Not Applied"
         g.append({'id':x.id,'stock':x.stock,"total_quantity":x.total_quantity,"quantity_per_user":x.quantity_per_user,'status':status})
 
     context = {'items': g}
     template = "simulator/ipo.html"
     return render(request, template, context)  
-
-
 
 @login_required
 def ipomanage(request,newsid):
@@ -194,14 +193,15 @@ def ipomanage(request,newsid):
 def ipoapply(request,newsid):
     items = ipo.objects.filter(id = newsid)
     if(items):
-        if not (ipo_application.objects.filter(user = request.user)):
+        if not (ipo_application.objects.filter(user = request.user,ipo=items[0])):
           p = ipo_application(ipo= items[0],user=request.user,status="Applied")
           p.save()
     return HttpResponseRedirect(reverse_lazy('ipo'))  
 
 @login_required
 def ipodistribute(request,newsid):
-   ipo_a = ipo.objects.get(id=newsid).select_related('stock')
+   ipo_b = ipo.objects.filter(id=newsid).select_related('stock') 
+   ipo_a = ipo_b[0]
    if(ipo_a.status != "Completed"):
     items = ipo_application.objects.filter(ipo = newsid)
     total_users = ipo_a.total_quantity / ipo_a.quantity_per_user
@@ -220,9 +220,6 @@ def ipodistribute(request,newsid):
            z.save()
            y.save()
            x.save()
-        print(price)
-        print(ipo_a.quantity_per_user)
-        print(total_cost)
     ipo_a.status = "Completed"
     ipo_a.save()
    return HttpResponseRedirect(reverse_lazy('ipo'))  
@@ -256,7 +253,6 @@ def equity_transactions(request):
                   z = holdings(stock = a.stock,quantity = a.quantity,average_price = a.buy_price, user = request.user, league = a.league)
                   z.save()    
               elif a.ttype == "SELL":
-                  t.balance += a.total_investment 
                   if hs.exists():
                        z = hs[0]
                        if z.quantity >= a.quantity:
@@ -265,8 +261,12 @@ def equity_transactions(request):
                            messages.error(request, "Sell Quantity cant be more than owned quantity")
                            return HttpResponseRedirect(reverse_lazy('transact'))
                        z.save()
+                       t.balance += a.total_investment 
                        if z.quantity == 0:
                               z.delete()
+                  else:
+                           messages.error(request, "Stock not owned")
+                           return HttpResponseRedirect(reverse_lazy('transact'))
               #--------SHORT---------------------
               hs = holdings.objects.filter(user=request.user, league=request.user.lauth.league,stock = a.stock,type='Short').select_related('stock')
            

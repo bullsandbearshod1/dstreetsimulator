@@ -65,7 +65,7 @@
                                                 {% if item.status == "Not Applied"  %}
                                                 <td><a href='/ipo/apply/{{ item.id }}/'>Apply</a></td>
                                                 {% else %}
-                                                <td>Applied</td>
+                                                <td>{{item.status}}</td>
                                                 {% endif %}
                                                 <td>{{item.status}}</td>
                                     </tr>
