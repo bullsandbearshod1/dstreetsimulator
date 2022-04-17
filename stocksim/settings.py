@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3pv+@28e6m#2)iz!irmn3tk(jh)p08u*h@(!tnuocq7@z#cdai'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -131,9 +131,9 @@ LOGIN_URL = '/login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
-EMAIL_HOST = 'smtp.sendgrid.net'  
-EMAIL_HOST_PASSWORD = "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"
-EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'sarafraghav1@gmail.com'
